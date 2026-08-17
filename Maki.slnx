@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Maki.Cli/Maki.Cli.csproj" />
+    <Project Path="src/Maki.Core/Maki.Core.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Maki.Tests/Maki.Tests.csproj" />
+  </Folder>
+</Solution>
