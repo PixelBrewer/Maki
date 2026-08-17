@@ -98,6 +98,18 @@ public class ProjectPlannerTests
         gitIgnore.Contents.Should().Contain(".DS_Store");
         gitIgnore.Contents.Should().Contain("*.o");
     }
+
+    [Test]
+    public void CreatePlan_IncludesIncludeDirectory()
+    {
+        var definition = new ProjectDefinition("HelloWorld", "/projects");
+        var planner = new ProjectPlanner();
+
+        var plan = planner.CreatePlan(definition);
+
+        plan.Directories.Should().Contain(
+            "/projects/HelloWorld/include");
+    }
 }
 
 

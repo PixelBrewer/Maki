@@ -10,20 +10,21 @@ public sealed class ProjectPlanner
 
         var directories = new[]
         {
-      rootDirectory,
-      Path.Combine(rootDirectory, "src")
-    };
+        rootDirectory,
+        Path.Combine(rootDirectory, "src"),
+        Path.Combine(rootDirectory, "include")
+        };
 
         var files = new[]
         {
-      new GeneratedFile(Path.Combine(rootDirectory, "CMakeLists.txt"), CppTemplates.CMakeLists(definition.Name)),
+          new GeneratedFile(Path.Combine(rootDirectory, "CMakeLists.txt"), CppTemplates.CMakeLists(definition.Name)),
 
-      new GeneratedFile(Path.Combine(rootDirectory, "src", "main.cpp"), CppTemplates.MainCpp),
+          new GeneratedFile(Path.Combine(rootDirectory, "src", "main.cpp"), CppTemplates.MainCpp),
 
-      new GeneratedFile(Path.Combine(rootDirectory, "CMakePresets.json"), CppTemplates.CMakePresets),
+          new GeneratedFile(Path.Combine(rootDirectory, "CMakePresets.json"), CppTemplates.CMakePresets),
 
-      new GeneratedFile(Path.Combine(rootDirectory, ".gitignore"), CppTemplates.GitIgnore)
-    };
+          new GeneratedFile(Path.Combine(rootDirectory, ".gitignore"), CppTemplates.GitIgnore)
+        };
 
         return new GenerationPlan(rootDirectory, directories, files);
     }
