@@ -65,6 +65,23 @@ public class ProjectPlannerTests
         cmake.Contents.Should().Contain("set(CMAKE_CXX_STANDARD 23)");
         cmake.Contents.Should().Contain("src/main.cpp");
     }
+
+    [Test]
+    public void CreatePlan_GenerateCmakePresets()
+    {
+        var definition = new ProjectDefinition("HelloWorld", "/projects");
+
+        var planner = new ProjectPlanner();
+
+        var plan = planner.CreatePlan(definition);
+
+        var presets = plan.Files.Single(file => file.Path.EndsWith("CMakePresets.json"));
+
+        presets.Contents.Should().Contain("\"generator\": \"Ninja\"");
+        presets.Contents.Should().Contain("\"CC\": \"clang\"");
+        presets.Contents.Should().Contain("\"CXX\": \"clang++\"");
+        presets.Contents.Should().Contain("\"name\": \"debug\"");
+    }
 }
 
 
