@@ -16,7 +16,7 @@ public sealed class ProjectPlanner
 
         var files = new[]
         {
-      new GeneratedFile(Path.Combine(rootDirectory, "CMakeLists.txt"), string.Empty),
+      new GeneratedFile(Path.Combine(rootDirectory, "CMakeLists.txt"), CppTemplates.CMakeLists(definition.Name)),
 
       new GeneratedFile(Path.Combine(rootDirectory, "src", "main.cpp"), CppTemplates.MainCpp)
     };

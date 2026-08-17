@@ -49,6 +49,22 @@ public class ProjectPlannerTests
         mainCpp.Contents.Should().Contain("int main()");
         mainCpp.Contents.Should().Contain("Hello, World!");
     }
+
+    [Test]
+    public void CreatePlan_GenerateCMakeListsContents()
+    {
+        var definition = new ProjectDefinition("HelloWorld", "/projects");
+
+        var planner = new ProjectPlanner();
+
+        var plan = planner.CreatePlan(definition);
+
+        var cmake = plan.Files.Single(file => file.Path.EndsWith("CMakeLists.txt"));
+
+        cmake.Contents.Should().Contain("project(HelloWorld LANGUAGES CXX)");
+        cmake.Contents.Should().Contain("set(CMAKE_CXX_STANDARD 23)");
+        cmake.Contents.Should().Contain("src/main.cpp");
+    }
 }
 
 
