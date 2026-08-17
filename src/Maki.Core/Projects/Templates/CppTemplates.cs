@@ -42,6 +42,34 @@ internal static class CppTemplates
       ]
     }
     """;
+
+    public const string GitIgnore =
+        """
+    # Build output
+    build/
+
+    # C/C++ artifacts
+    *.o
+    *.obj
+    *.a
+    *.so
+    *.dylib
+    *.dll
+    *.exe
+
+    # CMake
+    CMakeCache.txt
+    CMakeFiles/
+    cmake_install.cmake
+    Makefile
+
+    # macOS
+    .DS_Store
+
+    # Editors
+    .vscode/
+    .idea/
+    """;
     public static string CMakeLists(string projectName) =>
       $$"""
       cmake_minimum_required(VERSION 3.20)

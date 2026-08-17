@@ -20,7 +20,9 @@ public sealed class ProjectPlanner
 
       new GeneratedFile(Path.Combine(rootDirectory, "src", "main.cpp"), CppTemplates.MainCpp),
 
-      new GeneratedFile(Path.Combine(rootDirectory, "CMakePresets.json"), CppTemplates.CMakePresets)
+      new GeneratedFile(Path.Combine(rootDirectory, "CMakePresets.json"), CppTemplates.CMakePresets),
+
+      new GeneratedFile(Path.Combine(rootDirectory, ".gitignore"), CppTemplates.GitIgnore)
     };
 
         return new GenerationPlan(rootDirectory, directories, files);

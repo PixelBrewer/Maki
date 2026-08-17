@@ -82,6 +82,22 @@ public class ProjectPlannerTests
         presets.Contents.Should().Contain("\"CXX\": \"clang++\"");
         presets.Contents.Should().Contain("\"name\": \"debug\"");
     }
+
+    [Test]
+    public void CreatePlan_GenerateGitIgnore()
+    {
+        var definition = new ProjectDefinition("HelloWorld", "/projects");
+        var planner = new ProjectPlanner();
+
+        var plan = planner.CreatePlan(definition);
+
+        var gitIgnore = plan.Files.Single(
+            file => file.Path.EndsWith(".gitignore"));
+
+        gitIgnore.Contents.Should().Contain("build/");
+        gitIgnore.Contents.Should().Contain(".DS_Store");
+        gitIgnore.Contents.Should().Contain("*.o");
+    }
 }
 
 
