@@ -22,6 +22,12 @@ public sealed class NewCommand : AsyncCommand<NewCommand.Settings>
     protected override async Task<int> ExecuteAsync(CommandContext context, Settings settings, CancellationToken cancellationToken)
     {
 
+      if(!ProjectNameValidator.IsValid(settings.Name)){
+        AnsiConsole.MarkupLine("[red]Error:[/] Project name must begin with a letter and contain only letters, numbers, '-' or '_'.");
+
+        return 1;
+      }
+
         var definition = new ProjectDefinition(settings.Name, Directory.GetCurrentDirectory());
 
         var planner = new ProjectPlanner();
