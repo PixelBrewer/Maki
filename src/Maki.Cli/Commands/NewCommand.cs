@@ -6,7 +6,7 @@ using Maki.Core.Projects;
 using Spectre.Console;
 using Spectre.Console.Cli;
 
-public sealed class NewCommand : Command<NewCommand.Settings>
+public sealed class NewCommand : AsyncCommand<NewCommand.Settings>
 {
   public sealed class Settings : CommandSettings{
     [CommandArgument(0, "<NAME>")]
@@ -18,7 +18,7 @@ public sealed class NewCommand : Command<NewCommand.Settings>
     public bool DryRun { get; set; }
   }
 
-  protected override int Execute(CommandContext context, Settings settings, CancellationToken cancellationToken){
+  protected override async Task<int> ExecuteAsync(CommandContext context, Settings settings, CancellationToken cancellationToken){
 
     var definition = new ProjectDefinition(settings.Name, Directory.GetCurrentDirectory());
 
@@ -33,11 +33,12 @@ public sealed class NewCommand : Command<NewCommand.Settings>
 
     var writer = new ProjectWriter();
 
+    if(Directory.Exists(plan.RootDirectory)){
+      AnsiConsole.MarkupLine($"[red]Error:[/] Directory already exists: {Markup.Escape(plan.RootDirectory)}");
+      return 1;
+    }
+
     await writer.WriteAsync(plan, cancellationToken);
-
-    //AnsiConsole.MarkupLine($"[bold]Project:[/] {Markup.Escape(settings.Name)}");
-
-    //AnsiConsole.MarkupLine($"[bold]Location:[/] {Markup.Escape(plan.RootDirectory)}");
 
     return 0;
   }
