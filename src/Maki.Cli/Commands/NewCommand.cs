@@ -50,6 +50,8 @@ public sealed class NewCommand : AsyncCommand<NewCommand.Settings>
 
         await writer.WriteAsync(plan, cancellationToken);
 
+        GenerationResultRenderer.Render(plan, settings.Name);
+
         return 0;
     }
 }
