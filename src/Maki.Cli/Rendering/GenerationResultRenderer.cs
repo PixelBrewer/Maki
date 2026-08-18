@@ -7,7 +7,8 @@ public static class GenerationResultRenderer
 {
     public static void Render(
         GenerationPlan plan,
-        string projectName)
+        string projectName,
+        bool gitInitialized)
     {
         AnsiConsole.MarkupLine(
             $"[green]✓[/] Created [bold]{Markup.Escape(projectName)}[/]");
@@ -16,6 +17,12 @@ public static class GenerationResultRenderer
 
         AnsiConsole.MarkupLine(
             $"  [grey]{Markup.Escape(plan.RootDirectory)}[/]");
+
+        if (gitInitialized)
+        {
+            AnsiConsole.MarkupLine(
+                "  [green]✓[/] Initialized Git repository");
+        }
 
         AnsiConsole.WriteLine();
         AnsiConsole.MarkupLine("[bold]Next steps:[/]");
@@ -34,4 +41,3 @@ public static class GenerationResultRenderer
             $"  [grey]./build/debug/{Markup.Escape(projectName)}[/]");
     }
 }
-
